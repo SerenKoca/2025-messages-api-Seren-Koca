@@ -1,7 +1,7 @@
 const express = require('express')
 const logger = require('./middleware/logger');
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
 let messages = [
     "hello",
