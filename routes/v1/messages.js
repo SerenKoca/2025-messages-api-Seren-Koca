@@ -18,6 +18,8 @@ router.get("/:id", (req, res) => {
     }
     else {
         res.json(messages[id]);
+        
+
     }
 });
 
@@ -27,12 +29,12 @@ router.get('/', (req, res) => {
         "data": {
             messages: [
                 {
-                    "user": "Jhon",
+                    "user": "John",
                     "message": "Hello"
                 },
                 {
-                    "user": "jane",
-                    "message": "hi"
+                    "user": "Jane",
+                    "message": "Hi"
                 }
             ]
        },
