@@ -25,8 +25,17 @@ router.get('/', (req, res) => {
     res.json({
         "status": "success",
         "data": {
-            messages: messages
-        },
+            messages: [
+                {
+                    "user": "Jhon",
+                    "message": "Hello"
+                },
+                {
+                    "user": "jane",
+                    "message": "hi"
+                }
+            ]
+       },
     });
 });
 
