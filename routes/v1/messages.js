@@ -24,7 +24,9 @@ router.get("/:id", (req, res) => {
 router.get('/', (req, res) => {
     res.json({
         "status": "success",
-        "data": messages,
+        "data": {
+            messages: messages
+        },
     });
 });
 
