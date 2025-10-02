@@ -17,7 +17,16 @@ router.get("/:id", (req, res) => {
         });
     }
     else {
-        res.json(messages[id]);
+        //res.json(messages[id]);
+        res.json({
+            "status": "success",
+            "message": "GETTING message: " + messages[id],
+            "data": {
+                "user": user[id],
+                "message": messages[id]
+            }
+
+        })
         
 
     }
