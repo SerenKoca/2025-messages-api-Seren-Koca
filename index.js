@@ -2,39 +2,11 @@ const express = require('express')
 const logger = require('./middleware/logger');
 const app = express();
 const port = 3000;
-
-let messages = [
-    "hello",
-    "hi",
-    "how are you?"
-];
-
-app.use("/messages", logger);
-app.use(express.json());
-
-app.get("/messages/:id", (req, res) => {
-    let id = req.params.id;
-    if (id >= messages.length) {
-        res.json({
-            "status" : "error",
-            "message" : "message not found"
-        });
-    }
-    else {
-        res.json(messages[id]);
-    }
-});
+const messagesRouter = require('./routes/v1/messages');
 
 
-app.get('/messages', (req, res) => {
-    res.json(messages);
-});
-
-app.post('/messages', (req, res) => {
-    let message = req.body.message;
-    messages.push(message);
-    res.send('POST /messages')
-});
+app.use("/api/v1/messages/", messagesRouter);//word alleen op /api/v1/messages gebruikt, maakt niet echt uit wat er staat kan ook Seren staan ofzo
+app.use(express.json());//word op alles gebruikt. gebruikt om tussen backend en frontend te praten in Json en gaat json zo activeren. op elke route moet json werken
 
 
 app.listen(port, () => {
