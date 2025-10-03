@@ -42,10 +42,13 @@ router.get("/:id", (req, res) => {
      
         res.json({
             "status" : "success",
-            "message" : "GETTING message" + id,
+            "message" : "GETTING message " + id,
             "data": {
-                "message": messages[id],
-                "user": users[id]
+                "message": {
+                    "message": messages[id],
+                    "user": users[id]
+                }
+
             }
         });
         
