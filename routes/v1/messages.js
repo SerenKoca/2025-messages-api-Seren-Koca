@@ -39,9 +39,15 @@ router.get("/:id", (req, res) => {
         });
     }
     else {
-        res.json(messages[id]);
-        res.json(users[id]);
-        
+     
+        res.json({
+            "status" : "success",
+            "message" : "GETTING message" + id,
+            "data": {
+                "message": messages[id],
+                "user": users[id]
+            }
+        });
         
 
     }
