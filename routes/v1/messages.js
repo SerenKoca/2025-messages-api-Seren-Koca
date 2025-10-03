@@ -67,21 +67,27 @@ router.post('/', (req, res) => {
         });
     }
 
+    // Genereer een unieke ID (24 karakters hex string zoals MongoDB ObjectId)
+    const generateObjectId = () => {
+        const timestamp = Math.floor(Date.now() / 1000).toString(16).padStart(8, '0');
+        const randomBytes = Array(16)
+            .fill(0)
+            .map(() => Math.floor(Math.random() * 16).toString(16))
+            .join('');
+        return timestamp + randomBytes;
+    };
+
+    const uniqueId = generateObjectId();
+
     // Voeg de nieuwe message en user toe aan de arrays
     messages.push(messageData.text);
     users.push(messageData.user);
-
-    // Genereer een random ID
-    const randomId = Array(4)
-        .fill(0)
-        .map(() => Math.random().toString(16).substring(2, 8))
-        .join('');
 
     // Maak het nieuwe bericht object
     const newMessage = {
         user: messageData.user,
         text: messageData.text,
-        _id: randomId,
+        _id: uniqueId,
         __v: 0
     };
 
