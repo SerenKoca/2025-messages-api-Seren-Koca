@@ -9,24 +9,21 @@ let messages = [
 
 let users = [
     "John",
-    "Jane"
+    "Janne"
 ];
 
 router.get('/', (req, res) => {
+    // Create messages array using the arrays defined above
+    const messageData = messages.map((message, index) => ({
+        "user": users[index] || "Unknown", 
+        "message": message
+    }));
+
     res.json({
         "status": "success",
         "data": {
-            messages: [
-                {
-                    "user": "John",
-                    "message": "Hello"
-                },
-                {
-                    "user": "Jane",
-                    "message": "Hi"
-                }
-            ]
-       },
+            messages: messageData
+        },
     });
 });
 
