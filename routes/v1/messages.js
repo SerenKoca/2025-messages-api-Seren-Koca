@@ -4,28 +4,66 @@ const router = express.Router();
 
 let messages = [
     "hello",
-    "hi"
+    "hi",
+    "Hi! I'm a message",
+    "Hi! I'm another message"
 ];
 
 let users = [
     "John",
-    "Jane"
+    "Jane",
+    "pikachu",
+    "pikachu"
 ];
 
 router.get('/', (req, res) => {
-    // combineer users en messages in één array van objecten
-    let combined = messages.map((msg, i) => ({
-        user: users[i] || "Unknown",  // fallback als er geen user is
-        message: msg
-    }));
+    // Check for user query parameter
+    const userFilter = req.query.user;
+    
+    if (userFilter) {
+        // Filter messages by user and format for query response
+        let userMessages = [];
+        const generateObjectId = () => {
+            const timestamp = Math.floor(Date.now() / 1000).toString(16).padStart(8, '0');
+            const randomBytes = Array(16)
+                .fill(0)
+                .map(() => Math.floor(Math.random() * 16).toString(16))
+                .join('');
+            return timestamp + randomBytes;
+        };
 
-    res.json({
-        "status": "success",
-        "message": "GETTING messages",
-        "data": {
-            "messages": combined
-        }
-    });
+        messages.forEach((msg, i) => {
+            if (users[i] === userFilter) {
+                userMessages.push({
+                    user: users[i],
+                    text: msg,
+                    _id: generateObjectId()
+                });
+            }
+        });
+
+        res.json({
+            "status": "success",
+            "message": `Messages from user ${userFilter}`,
+            "data": {
+                "messages": userMessages
+            }
+        });
+    } else {
+        // Original functionality - return all messages
+        let combined = messages.map((msg, i) => ({
+            user: users[i] || "Unknown",
+            message: msg
+        }));
+
+        res.json({
+            "status": "success",
+            "message": "GETTING messages",
+            "data": {
+                "messages": combined
+            }
+        });
+    }
 });
 
 
@@ -190,7 +228,5 @@ router.delete('/:id', (req, res) => {
         }
     });
 });
-
-
 
 module.exports = router;
