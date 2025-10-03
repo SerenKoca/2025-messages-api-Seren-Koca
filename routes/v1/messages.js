@@ -8,6 +8,23 @@ let messages = [
     "how are you?"
 ];
 
+let users = [
+    "John",
+    "Jane",
+    "Doe"
+];
+
+router.get('/', (req, res) => {
+    res.json({
+        "status": "success",
+        "data": {
+            messages: messages,
+            users: users
+        }
+    });
+});
+
+
 router.get("/:id", (req, res) => {
     let id = req.params.id;
     if (id >= messages.length) {
@@ -17,37 +34,11 @@ router.get("/:id", (req, res) => {
         });
     }
     else {
-        //res.json(messages[id]);
-        res.json({
-            "status": "success",
-            "message": "GETTING message: " + messages[id],
-            "data": {
-                "user": user[id],
-                "message": messages[id]
-            }
-
-        })
+        res.json(messages[id]);
+        
         
 
     }
-});
-
-router.get('/', (req, res) => {
-    res.json({
-        "status": "success",
-        "data": {
-            messages: [
-                {
-                    "user": "John",
-                    "message": "Hello"
-                },
-                {
-                    "user": "Jane",
-                    "message": "Hi"
-                }
-            ]
-       },
-    });
 });
 
 router.post('/', (req, res) => {
