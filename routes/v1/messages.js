@@ -70,15 +70,23 @@ router.post('/', (req, res) => {
     messages.push(messageData.text);
     users.push(messageData.user);
     
-    // Maak het nieuwe bericht object
+    // Genereer een random ID (zoals in de gewenste output)
+    let randomId = Math.random().toString(16).substring(2, 8) + 
+                   Math.random().toString(16).substring(2, 8) + 
+                   Math.random().toString(16).substring(2, 8) + 
+                   Math.random().toString(16).substring(2, 2);
+    
+    // Maak het nieuwe bericht object volgens gewenste format
     let newMessage = {
         user: messageData.user,
-        message: messageData.text
+        text: messageData.text,  // Let op: "text" niet "message"
+        _id: randomId,
+        __v: 0
     };
     
     res.json({
         "status": "success",
-        "message": "Message added successfully",
+        "message": "Message saved",
         "data": {
             "message": newMessage
         }
