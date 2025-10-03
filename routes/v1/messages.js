@@ -3,29 +3,10 @@ const router = express.Router();
 
 
 let messages = [
-    "Hello",
-    "Hi"
+    "hello",
+    "hi",
+    "how are you?"
 ];
-
-let users = [
-    "John",
-    "Janne"
-];
-
-router.get('/', (req, res) => {
-    // Create messages array using the arrays defined above
-    const messageData = messages.map((message, index) => ({
-        "user": users[index] || "Unknown", 
-        "message": message
-    }));
-
-    res.json({
-        "status": "success",
-        "data": {
-            messages: messageData
-        },
-    });
-});
 
 router.get("/:id", (req, res) => {
     let id = req.params.id;
@@ -49,6 +30,24 @@ router.get("/:id", (req, res) => {
         
 
     }
+});
+
+router.get('/', (req, res) => {
+    res.json({
+        "status": "success",
+        "data": {
+            messages: [
+                {
+                    "user": "John",
+                    "message": "Hello"
+                },
+                {
+                    "user": "Jane",
+                    "message": "Hi"
+                }
+            ]
+       },
+    });
 });
 
 router.post('/', (req, res) => {
