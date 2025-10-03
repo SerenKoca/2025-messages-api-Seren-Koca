@@ -57,9 +57,32 @@ router.get("/:id", (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    let message = req.body.message;
-    messages.push(message);
-    res.send('POST /messages')
+    let messageData = req.body.message;
+    
+    if (!messageData || !messageData.user || !messageData.text) {
+        return res.json({
+            "status": "error",
+            "message": "Invalid message format. Required: { message: { user: 'string', text: 'string' } }"
+        });
+    }
+    
+    // Voeg de nieuwe message en user toe aan de arrays
+    messages.push(messageData.text);
+    users.push(messageData.user);
+    
+    // Maak het nieuwe bericht object
+    let newMessage = {
+        user: messageData.user,
+        message: messageData.text
+    };
+    
+    res.json({
+        "status": "success",
+        "message": "Message added successfully",
+        "data": {
+            "message": newMessage
+        }
+    });
 });
 
 module.exports = router;
