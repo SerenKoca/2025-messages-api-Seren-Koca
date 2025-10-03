@@ -3,10 +3,32 @@ const router = express.Router();
 
 
 let messages = [
-    "hello",
-    "hi",
-    "how are you?"
+    "Hello",
+    "Hi"
 ];
+
+let users = [
+    "John",
+    "Jane"
+];
+
+router.get('/', (req, res) => {
+    res.json({
+        "status": "success",
+        "data": {
+            messages: [
+                {
+                    "user": "John",
+                    "message": "Hello"
+                },
+                {
+                    "user": "Jane",
+                    "message": "Hi"
+                }
+            ]
+       },
+    });
+});
 
 router.get("/:id", (req, res) => {
     let id = req.params.id;
@@ -30,24 +52,6 @@ router.get("/:id", (req, res) => {
         
 
     }
-});
-
-router.get('/', (req, res) => {
-    res.json({
-        "status": "success",
-        "data": {
-            messages: [
-                {
-                    "user": "John",
-                    "message": "Hello"
-                },
-                {
-                    "user": "Jane",
-                    "message": "Hi"
-                }
-            ]
-       },
-    });
 });
 
 router.post('/', (req, res) => {
