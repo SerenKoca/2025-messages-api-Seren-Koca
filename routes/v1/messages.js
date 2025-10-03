@@ -4,14 +4,12 @@ const router = express.Router();
 
 let messages = [
     "hello",
-    "hi",
-    "how are you?"
+    "hi"
 ];
 
 let users = [
     "John",
-    "Jane",
-    "Doe"
+    "Jane"
 ];
 
 router.get('/', (req, res) => {
@@ -42,6 +40,7 @@ router.get("/:id", (req, res) => {
     }
     else {
         res.json(messages[id]);
+        res.json(users[id]);
         
         
 
