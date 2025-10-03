@@ -15,14 +15,21 @@ let users = [
 ];
 
 router.get('/', (req, res) => {
+    // combineer users en messages in één array van objecten
+    let combined = messages.map((msg, i) => ({
+        user: users[i] || "Unknown",  // fallback als er geen user is
+        message: msg
+    }));
+
     res.json({
         "status": "success",
+        "message": "GETTING messages",
         "data": {
-            messages: messages,
-            users: users
+            "messages": combined
         }
     });
 });
+
 
 
 router.get("/:id", (req, res) => {
