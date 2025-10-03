@@ -57,38 +57,39 @@ router.get("/:id", (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    let messageData = req.body.message;
-    
-    if (!messageData || !messageData.user || !messageData.text) {
+    const messageData = req.body.message;
+
+    // Check of de body correct is
+    if (!messageData || typeof messageData.user !== 'string' || typeof messageData.text !== 'string') {
         return res.json({
-            "status": "error",
-            "message": "Invalid message format. Required: { message: { user: 'string', text: 'string' } }"
+            status: "error",
+            message: "Invalid message format. Required: { message: { user: 'string', text: 'string' } }"
         });
     }
-    
+
     // Voeg de nieuwe message en user toe aan de arrays
     messages.push(messageData.text);
     users.push(messageData.user);
-    
-    // Genereer een random ID (zoals in de gewenste output)
-    let randomId = Math.random().toString(16).substring(2, 8) + 
-                   Math.random().toString(16).substring(2, 8) + 
-                   Math.random().toString(16).substring(2, 8) + 
-                   Math.random().toString(16).substring(2, 2);
-    
-    // Maak het nieuwe bericht object volgens gewenste format
-    let newMessage = {
+
+    // Genereer een random ID
+    const randomId = Array(4)
+        .fill(0)
+        .map(() => Math.random().toString(16).substring(2, 8))
+        .join('');
+
+    // Maak het nieuwe bericht object
+    const newMessage = {
         user: messageData.user,
-        text: messageData.text,  // Let op: "text" niet "message"
+        text: messageData.text,
         _id: randomId,
         __v: 0
     };
-    
+
     res.json({
-        "status": "success",
-        "message": "Message saved",
-        "data": {
-            "message": newMessage
+        status: "success",
+        message: "Message saved",
+        data: {
+            message: newMessage
         }
     });
 });
