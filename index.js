@@ -8,6 +8,7 @@ const config = require('config');
 const mongoose = require('mongoose');
 // Read DB URI from config, allow overriding with env var MONGO_URI
 const dbUri = process.env.MONGO_URI || config.get('db.uri');
+console.log(dbUri);
 const dbOptions = config.has('db.options') ? config.get('db.options') : {};
 
 // Connect to MongoDB before loading routes/models
