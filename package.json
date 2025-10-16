@@ -10,7 +10,9 @@
   "description": "",
   "dependencies": {
     "chalk": "^4.1.2",
+    "config": "^4.1.1",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1"
   }
 }
